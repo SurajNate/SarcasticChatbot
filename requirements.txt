@@ -1,5 +1,6 @@
 altair==5.5.0
 attrs==25.3.0
+beautifulsoup4==4.13.3
 blinker==1.9.0
 cachetools==5.5.2
 certifi==2025.1.31
@@ -39,6 +40,7 @@ scikit-learn==1.6.1
 scipy==1.15.2
 six==1.17.0
 smmap==5.0.2
+soupsieve==2.6
 streamlit==1.43.2
 sympy==1.13.1
 tenacity==9.0.0
@@ -53,3 +55,4 @@ typing_extensions==4.12.2
 tzdata==2025.1
 urllib3==2.3.0
 watchdog==6.0.0
+wikipedia==1.4.0
