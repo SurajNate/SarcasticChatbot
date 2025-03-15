@@ -95,7 +95,7 @@ def main():
     df = load_dataset()
 
     # User input
-    user_input = st.text_input("You: ", "I am so stressed about work and coding")
+    user_input = st.text_input("You: ", "I am so stressed about work")
 
     # Generate response
     if st.button("Get Response"):
