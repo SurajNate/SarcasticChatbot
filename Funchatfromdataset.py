@@ -85,8 +85,8 @@ def fetch_wikipedia_answer(query):
 
 # Streamlit UI
 def main():
-    st.title("🤖 Sarcastic Chatbot (Bollywood Dialogues + Wikipedia)")
-    st.write("Welcome to the Sarcastic Chatbot! Ask anything, and it will respond with a funny Bollywood dialogue or a sarcastic response in a Hindi tone, followed by an actual helpful answer from Wikipedia.")
+    st.title("🤖 Sarcastic Chatbot (Bollywood Dialogues)")
+    st.write("Welcome to the Sarcastic Chatbot! Ask anything, and it will respond with a funny Bollywood dialogue or a sarcastic response in a Hindi tone, followed by an actual helpful answer.")
 
     # Load the model and tokenizer
     model, tokenizer = load_model()
