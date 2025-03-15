@@ -5,6 +5,7 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import random
+import wikipedia
 
 # Set Streamlit page configuration for full width
 st.set_page_config(page_title="Sarcastic Chatbot", layout="wide")
@@ -64,10 +65,28 @@ def funny_hindi_response():
     ]
     return random.choice(hindi_phrases)
 
+# Function to fetch information from Wikipedia
+def fetch_wikipedia_answer(query):
+    """
+    Fetch a summary of the query from Wikipedia.
+    """
+    try:
+        # Set the language to English (you can change it to 'hi' for Hindi)
+        wikipedia.set_lang("en")
+        # Fetch the summary of the query
+        summary = wikipedia.summary(query, sentences=2)  # Get a 2-sentence summary
+        return summary
+    except wikipedia.exceptions.PageError:
+        return "Sorry, I couldn't find any information on that topic."
+    except wikipedia.exceptions.DisambiguationError:
+        return "There are multiple meanings for this term. Can you be more specific?"
+    except Exception as e:
+        return f"An error occurred while fetching information: {e}"
+
 # Streamlit UI
 def main():
-    st.title("🤖 Sarcastic Chatbot (Bollywood Dialogues Integration)")
-    st.write("Welcome to the Sarcastic Chatbot! Ask anything, and it will respond with a funny Bollywood dialogue or a sarcastic response in a Hindi tone.")
+    st.title("🤖 Sarcastic Chatbot (Bollywood Dialogues + Wikipedia)")
+    st.write("Welcome to the Sarcastic Chatbot! Ask anything, and it will respond with a funny Bollywood dialogue or a sarcastic response in a Hindi tone, followed by an actual helpful answer from Wikipedia.")
 
     # Load the model and tokenizer
     model, tokenizer = load_model()
@@ -88,12 +107,16 @@ def main():
                 relevant_dialogue = find_relevant_dialogue(user_input, df)
                 
                 if relevant_dialogue:
-                    # If a relevant dialogue is found, use it as the response
-                    st.success(f"Bot : {relevant_dialogue}")
+                    # If a relevant dialogue is found, use it as the sarcastic response
+                    st.success(f"Bot (Sarcastic): {relevant_dialogue}")
                 else:
                     # If no relevant dialogue is found, generate a funny Hindi-tone response
                     response = funny_hindi_response()
-                    st.success(f"Bot : {response}")
+                    st.success(f"Bot (Sarcastic): {response}")
+
+                # Step 2: Provide an actual helpful answer using Wikipedia
+                actual_response = fetch_wikipedia_answer(user_input)
+                st.info(f"Bot (Helpful): {actual_response}")
 
 # Run the app
 if __name__ == "__main__":
